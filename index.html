@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIRAS Consulting</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: rgba(15, 23, 42, 0.78);
+      --panel-2: rgba(15, 23, 42, 0.92);
+      --line: rgba(255, 255, 255, 0.1);
+      --text: #e5eefb;
+      --muted: #94a3b8;
+      --white: #ffffff;
+      --blue: #3b82f6;
+      --blue-soft: rgba(59, 130, 246, 0.14);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 26%),
+        radial-gradient(circle at 20% 10%, rgba(14, 165, 233, 0.12), transparent 20%),
+        linear-gradient(180deg, #0b1120 0%, #020617 42%, #020617 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(2, 6, 23, 0.78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand strong {
+      font-size: 1.05rem;
+      letter-spacing: -0.03em;
+    }
+
+    .brand span {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .nav-cta,
+    .btn,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav-cta {
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.92rem;
+    }
+
+    .nav-cta:hover,
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+    .btn:hover { transform: translateY(-1px); background: #5a97f7; }
+
+    .hero {
+      padding: 72px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+      min-height: 76vh;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(96, 165, 250, 0.22);
+      background: var(--blue-soft);
+      color: #bfdbfe;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 24px 0 0;
+      font-size: clamp(3rem, 7vw, 5.35rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      max-width: 820px;
+      color: var(--white);
+    }
+
+    .lead {
+      margin: 24px 0 0;
+      font-size: 1.16rem;
+      line-height: 1.85;
+      color: #cbd5e1;
+      max-width: 720px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      background: var(--blue);
+      color: var(--white);
+      padding: 15px 22px;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.28);
+    }
+
+    .btn-secondary {
+      padding: 15px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--white);
+    }
+
+    .outcomes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+      max-width: 760px;
+    }
+
+    .pill-card,
+    .card,
+    .offer-card,
+    .contact-card,
+    .snapshot,
+    .cred-card {
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .pill-card {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.04);
+      padding: 16px 18px;
+      border-radius: 22px;
+      color: #dbe7f5;
+      font-size: 0.96rem;
+    }
+
+    .check {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex: none;
+      border-radius: 50%;
+      background: rgba(59,130,246,0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #bfdbfe;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .snapshot {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border-radius: 34px;
+      padding: 18px;
+    }
+
+    .snapshot-inner {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+    }
+
+    .snapshot-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .snapshot-top p,
+    .section-label,
+    .mini-label {
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #93c5fd;
+      margin: 0;
+    }
+
+    .snapshot h3,
+    .section-title {
+      margin: 10px 0 0;
+      color: var(--white);
+      letter-spacing: -0.03em;
+    }
+
+    .snapshot h3 { font-size: 1.65rem; }
+    .section-title { font-size: clamp(2rem, 4vw, 3rem); }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: rgba(59,130,246,0.12);
+      display: grid;
+      place-items: center;
+      color: #93c5fd;
+      font-size: 1.2rem;
+    }
+
+    .snapshot-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .snapshot-item {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      border-radius: 22px;
+      padding: 16px;
+    }
+
+    .snapshot-item small,
+    .card p,
+    .offer-side li,
+    .muted {
+      color: var(--muted);
+    }
+
+    .snapshot-item strong { display: block; margin-top: 6px; color: var(--white); }
+
+    section { padding: 42px 0; }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-text {
+      margin-top: 14px;
+      color: #cbd5e1;
+      font-size: 1.08rem;
+      line-height: 1.85;
+    }
+
+    .problem-grid,
+    .services-grid,
+    .process-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .problem-wrap {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .problem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .services-grid,
+    .process-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      background: rgba(255,255,255,0.045);
+      border-radius: 30px;
+      padding: 26px;
+    }
+
+    .card h3 {
+      margin: 18px 0 0;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+
+    .card p { margin-top: 12px; font-size: 1rem; line-height: 1.8; }
+
+    .alt {
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+
+    .offer-card,
+    .offer-side,
+    .cred-wrap,
+    .contact-card {
+      border-radius: 32px;
+    }
+
+    .offer-card {
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.14), rgba(15,23,42,0.92));
+    }
+
+    .offer-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .offer-point {
+      border: 1px solid var(--line);
+      background: rgba(2,6,23,0.42);
+      border-radius: 22px;
+      padding: 16px;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+
+    .offer-side {
+      padding: 32px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .offer-side ul {
+      list-style: none;
+      padding: 0;
+      margin: 22px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .offer-side li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 1rem;
+      color: #dbe7f5;
+    }
+
+    .cred-wrap {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .cred-card {
+      background: rgba(2,6,23,0.48);
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      color: #dbe7f5;
+    }
+
+    .contact-card {
+      background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.98), rgba(30,64,175,0.28));
+      padding: 36px;
+    }
+
+    .contact-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .contact-link {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      border-radius: 22px;
+      padding: 16px 18px;
+      color: var(--white);
+    }
+
+    .contact-link strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+      color: #93c5fd;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .footer-note {
+      padding: 24px 0 36px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .problem-wrap,
+      .offer-grid,
+      .cred-wrap,
+      .services-grid,
+      .process-grid,
+      .contact-actions { grid-template-columns: 1fr; }
+
+      .problem-grid,
+      .outcomes,
+      .offer-points { grid-template-columns: 1fr; }
+
+      .nav-links { display: none; }
+      .hero { padding-top: 36px; }
+      .hero-grid { min-height: auto; }
+      h1 { max-width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .nav-inner { padding: 14px 0; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn, .btn-secondary, .nav-cta { width: 100%; }
+      .snapshot-inner, .card, .offer-card, .offer-side, .cred-wrap, .contact-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <strong>MIRAS</strong>
+        <span>Consulting</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#offer">Offer</a>
+        <a href="#approach">Approach</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="nav-cta">Book a call</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">⚠ Major Incident &amp; Problem Management Consultancy</div>
+          <h1>Fix your major incident process before the next outage exposes it.</h1>
+          <p class="lead">I help IT organisations handle high-severity incidents with more control, clearer communication, and stronger follow-through — while reducing repeat disruption through better problem management.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Book a 20-minute call →</a>
+            <a class="btn-secondary" href="#offer">View the health check</a>
+          </div>
+          <div class="outcomes">
+            <div class="pill-card"><span class="check">✓</span><span>Faster incident coordination</span></div>
+            <div class="pill-card"><span class="check">✓</span><span>Clearer roles and escalation paths</span></div>
+            <div class="pill-card"><span class="check">✓</span><span>Better leadership visibility during outages</span></div>
+            <div class="pill-card"><span class="check">✓</span><span>Fewer repeat service disruptions</span></div>
+          </div>
+        </div>
+
+        <div class="snapshot">
+          <div class="snapshot-inner">
+            <div class="snapshot-top">
+              <div>
+                <p>Snapshot</p>
+                <h3>Major Incident Health Check</h3>
+              </div>
+              <div class="icon-box">◈</div>
+            </div>
+            <div class="snapshot-list">
+              <div class="snapshot-item">
+                <small>Common signs you need this</small>
+                <strong>Chaotic response, unclear ownership, poor comms, repeat outages.</strong>
+              </div>
+              <div class="snapshot-item">
+                <small>What you get</small>
+                <strong>Clear findings, priority risks, practical fixes, and a roadmap your team can use.</strong>
+              </div>
+              <div class="snapshot-item">
+                <small>Best fit</small>
+                <strong>IT leaders who need control during serious incidents and fewer repeat failures.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container problem-wrap">
+        <div class="section-head">
+          <p class="section-label">The problem</p>
+          <h2 class="section-title">When incidents hit, most organisations fall apart faster than they realise.</h2>
+          <p class="section-text">The issue is rarely just tooling. It is usually unclear ownership, inconsistent escalation, weak communication, and poor operational discipline under pressure.</p>
+        </div>
+        <div class="problem-grid">
+          <div class="card"><p>No clear ownership when major incidents hit</p></div>
+          <div class="card"><p>Escalation is slow, inconsistent, or unclear</p></div>
+          <div class="card"><p>Communication breaks down under pressure</p></div>
+          <div class="card"><p>The same issues keep coming back</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt" id="services">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">Services</p>
+          <h2 class="section-title">Practical consulting for high-pressure IT operations.</h2>
+          <p class="section-text">Straightforward support for organisations that need clearer control, stronger response, and fewer repeat service disruptions.</p>
+        </div>
+        <div class="services-grid">
+          <div class="card">
+            <div class="icon-box">⚑</div>
+            <h3>Major Incident Management</h3>
+            <p>Bring structure, control, and clarity to high-severity incidents so teams respond faster and leaders stay informed.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">⌕</div>
+            <h3>Problem Management</h3>
+            <p>Reduce repeat disruption with stronger follow-through, better root cause discipline, and practical service improvement.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">✦</div>
+            <h3>Operational Leadership</h3>
+            <p>Improve governance, communication, escalation, and decision-making during high-pressure operational events.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="offer">
+      <div class="container offer-grid">
+        <div class="offer-card">
+          <p class="section-label">Core offer</p>
+          <h2 class="section-title">Major Incident Health Check</h2>
+          <p class="section-text">A focused review of your current incident process with clear, practical recommendations you can act on immediately.</p>
+          <div class="offer-points">
+            <div class="offer-point">What is broken or unclear</div>
+            <div class="offer-point">Where operational risk exists</div>
+            <div class="offer-point">What to fix first</div>
+            <div class="offer-point">How to improve quickly</div>
+          </div>
+        </div>
+        <div class="offer-side">
+          <p class="section-label">Who it is for</p>
+          <ul>
+            <li><span class="check">✓</span><span>Incidents feel chaotic or inconsistent</span></li>
+            <li><span class="check">✓</span><span>Teams do not know who owns what</span></li>
+            <li><span class="check">✓</span><span>Communication breaks down under pressure</span></li>
+            <li><span class="check">✓</span><span>Repeat outages are damaging confidence</span></li>
+          </ul>
+          <div style="margin-top: 24px;">
+            <a class="btn-secondary" href="#contact">Discuss your current setup</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt" id="approach">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">Approach</p>
+          <h2 class="section-title">Simple, focused, and built for the real world.</h2>
+          <p class="section-text">No bloated slide decks. No vague transformation language. Just practical operational improvement that stands up when service impact is high.</p>
+        </div>
+        <div class="process-grid">
+          <div class="card">
+            <p class="mini-label">01</p>
+            <h3>Assess</h3>
+            <p>Review your current incident and problem management approach, decision points, ownership, and operational pain.</p>
+          </div>
+          <div class="card">
+            <p class="mini-label">02</p>
+            <h3>Stabilise</h3>
+            <p>Identify the highest-value changes that improve control, reduce confusion, and strengthen response under pressure.</p>
+          </div>
+          <div class="card">
+            <p class="mini-label">03</p>
+            <h3>Strengthen</h3>
+            <p>Put in place a practical operating model your teams can actually use when service impact is high.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container cred-wrap">
+        <div>
+          <p class="section-label">Credibility</p>
+          <h2 class="section-title">Built around real operational pressure, not theory.</h2>
+          <p class="section-text">MIRAS is built for organisations that need a calmer, sharper, more controlled response to major incidents — and a stronger operating model behind it.</p>
+        </div>
+        <div class="cred-card">
+          <p class="muted" style="margin:0;">Focus areas</p>
+          <div class="tag-list">
+            <span class="tag">Major Incidents</span>
+            <span class="tag">Problem Management</span>
+            <span class="tag">Operational Governance</span>
+            <span class="tag">Escalation</span>
+            <span class="tag">Service Stability</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <p class="section-label">Contact</p>
+          <h2 class="section-title">Let’s fix how your team handles serious incidents.</h2>
+          <p class="section-text">Start with a straightforward conversation about your current setup, where the pressure points are, and what needs tightening first.</p>
+          <div class="contact-actions">
+            <a class="contact-link" href="mailto:hello@mirasconsulting.com">
+              <strong>Email</strong>
+              hello@mirasconsulting.com
+            </a>
+            <div class="contact-link">
+              <strong>Phone</strong>
+              Add your phone number
+            </div>
+          </div>
+          <div style="margin-top: 24px;">
+            <a class="btn" href="mailto:hello@mirasconsulting.com?subject=Discovery%20Call%20Request">Request a discovery call →</a>
+          </div>
+        </div>
+        <div class="footer-note">Preview version for MIRAS Consulting.</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
